@@ -10,7 +10,7 @@ export const ChangePass = () => {
 
     let { id } = useParams();
 
-    let useCases = useContext(UseCasesContext)
+    /*let useCases = useContext(UseCasesContext)
     const [form, setForm] = useState<{
         pass: string,
     }>({
@@ -86,5 +86,5 @@ export const ChangePass = () => {
                 </div>
             </div>
         </div>
-    )
+    )*/
 }

@@ -1,34 +1,53 @@
 import axios from "axios";
-import { AuthInterface, SignInRequest, SignInResponse } from "../../../useCase/authorization/adapters/api/Interface";
-import { AuthApi, Configuration } from "../generated";
+import { Configuration, DefaultApi } from "../generated";
 
-export class Auth implements AuthInterface {
-    private service: AuthApi;
+export class AuthApi {
+    private service: DefaultApi;
 
     constructor () {
-        this.service = new AuthApi(new Configuration(), process.env.REACT_APP_BACKEND_URL)
+        this.service = new DefaultApi(new Configuration(), "")
     }
 
-    async SignIn(params: SignInRequest): Promise<SignInResponse | Error> {
+    async SignIn(username: string, password: string): Promise<string | Error> {
         try {
-            let response = await this.service.apiAuthSignInPost({
-                login: params.login,
-                pass: params.pass
+            let response = await this.service.create3({
+                username: username,
+                password: password,
             })
 
             if (response.status === 200) {
-                return {
-                    token: response.data.token?response.data.token:"",
-                    refreshToken:  response.data.refreshToken?response.data.refreshToken:"",
-                }
+                return response.data
             }
         } catch(e) {
             let error: string = ""
             if (axios.isAxiosError(e)) {
-                error = e.response?.data.message
+                error = e.response?.data.error
             }
             
-            return Error("error authorization")
+            return Error(error)
+        }
+        
+        return Error("error authorization")
+    }
+
+    async Registration(name: string, email: string, password: string): Promise<number | Error> {
+        try {
+            let response = await this.service.create({
+                name: name,
+                email: email,
+                password: password,
+            })
+
+            if (response.status === 201) {
+                return response.data.id!
+            }
+        } catch(e) {
+            let error: string = ""
+            if (axios.isAxiosError(e)) {
+                error = e.response?.data.error
+            }
+            
+            return Error(error)
         }
         
         return Error("error authorization")

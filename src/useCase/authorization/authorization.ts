@@ -1,15 +1,15 @@
+import { AuthApi } from "../../repository/api/auth/auth";
 import { actionCreators } from "../../state";
 import { AuthStorage } from "../../storage/auth";
-import { AuthInterface } from "./adapters/api/Interface";
 import { AuthStorageInterface } from "./adapters/storage/storage";
 import jwtDecode from "jwt-decode";
 
 export class AuthorizationUseCases {
-    private api: AuthInterface;
+    private api: AuthApi;
     private stateActions: typeof actionCreators;
     private storage: AuthStorageInterface;
 
-    constructor(api: AuthInterface, stateActions: typeof actionCreators) {
+    constructor(api: AuthApi, stateActions: typeof actionCreators) {
         this.api = api;
         this.stateActions = stateActions;
         this.storage = new AuthStorage();
@@ -18,15 +18,19 @@ export class AuthorizationUseCases {
 
     public SignIn = async (login: Login, pass: Pass) => {
         this.stateActions.SendLoginRequest()
-        let response = await this.api.SignIn({ login, pass })
+        let response = await this.api.SignIn(login, pass)
         if (!(response instanceof Error)) {
-            this.storage.SaveToken(response.token)
-            this.storage.SaveRefreshToken(response.refreshToken)
+            this.storage.SaveToken(response)
             this.stateActions.LoginSuccess()
         } else {
-            let error = "ошибка авторизации"
+            let error = "Ошибка: Проверьте email и пароль"
             this.stateActions.LoginError(error)
         }
+    }
+
+    public Registration = async (name: string, email: string, pass: string) => {
+        let response = await this.api.Registration(name, email, pass)
+        return response;
     }
 
     public CheckAuthorization = () => {
@@ -45,61 +49,7 @@ export class AuthorizationUseCases {
 
     }
 
-    public IsAdminUser = () => {
-        let token = this.storage.ReadToken()
-        if (token) {
-            let decoded = jwtDecode<{role: string}>(token)
-            if (decoded.role === "admin") {
-                return true
-            }
-            return false
-        } else {
-            return false
-        }
-
-    }
-
-    public IsModerator = () => {
-        let token = this.storage.ReadToken()
-        if (token) {
-            let decoded = jwtDecode<{role: string}>(token)
-            if (decoded.role === "moderator" || decoded.role === "moderator_realist") {
-                return true
-            }
-            return false
-        } else {
-            return false
-        }
-
-    }
-
-    public IsModeratorRealist = () => {
-        let token = this.storage.ReadToken()
-        if (token) {
-            let decoded = jwtDecode<{role: string}>(token)
-            if (decoded.role === "moderator_realist") {
-                return true
-            }
-            return false
-        } else {
-            return false
-        }
-
-    }
-
-    public IsManager = () => {
-        let token = this.storage.ReadToken()
-        if (token) {
-            let decoded = jwtDecode<{role: string}>(token)
-            if (decoded.role === "manager") {
-                return true
-            }
-            return false
-        } else {
-            return false
-        }
-
-    }
+    
 
     public UserId = () => {
         let token = this.storage.ReadToken()

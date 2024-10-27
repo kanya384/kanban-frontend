@@ -1,6 +1,3 @@
-include .env
-export
-
 .PHONY: help
 
 help: ## Display this help screen

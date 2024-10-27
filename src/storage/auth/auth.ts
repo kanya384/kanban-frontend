@@ -1,4 +1,3 @@
-import { Token } from "../../domain/authorization/types";
 import { AuthStorageInterface } from "../../useCase/authorization/adapters/storage/storage";
 
 export class AuthStorage implements AuthStorageInterface {
@@ -11,11 +10,11 @@ export class AuthStorage implements AuthStorageInterface {
         localStorage.setItem("refresh_token", token)
     }
 
-    ReadToken(): Token | null {
+    ReadToken(): string | null {
         return localStorage.getItem("token")
     }
 
-    ReadRefreshToken(): Token | null {
+    ReadRefreshToken(): string | null {
         return localStorage.getItem("refresh_token")
     }
 

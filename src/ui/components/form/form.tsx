@@ -181,31 +181,6 @@ export const Form = (props: props) => {
     return (
         <form className="mb-3" method="POST" onSubmit={props.submit}>
             {props.fields.map((field, index) => {
-                if (field.name === "pass" && field.param) {
-                    //добавляет над полем "забыли пароль?"
-                    return (
-                        <div className="mb-3 form-password-toggle" key={"form_field_" + index}>
-                            <div className="d-flex justify-content-between">
-                                <label className="form-label" htmlFor="password">Пароль</label>
-                                <Link to="/forgot">
-                                    <small>Забыли пароль?</small>
-                                </Link>
-                            </div>
-                            <div className="input-group input-group-merge">
-                                <input
-                                    type={field.type}
-                                    className="form-control"
-                                    name={field.name}
-                                    placeholder={field.placeholder}
-                                    autoFocus={field.autofocus}
-                                    onChange={inputChange}
-                                    required={field.required??false}
-                                />
-                                <span className="input-group-text cursor-pointer"><i className="ti ti-eye-off"></i></span>
-                            </div>
-                        </div>
-                    )
-                }
                 switch (field.type) {
                     case FiledType.Select:
                         return (

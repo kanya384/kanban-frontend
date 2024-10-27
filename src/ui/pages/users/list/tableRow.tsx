@@ -37,7 +37,6 @@ export const TableRow = (props: { user: User, last: boolean }) => {
                 <div className={showMenu?"dropdown-menu show":"dropdown-menu "} style={showMenu ? props.last ? { position: "absolute", inset: "auto auto 0px -20%", margin: "0px", transform: "translate3d(0px, -20.5px, 0px)" }: {position: "absolute", marginLeft: "-40%",}: {display:"none"}}>
                     <Link className="dropdown-item d-flex" to={"/user/edit/"+props.user.Id()}><Edit className="me-1" size={20} /> Редактировать</Link>
                     <Link className="dropdown-item d-flex" to={"/user/password/"+props.user.Id()}><Lock className="me-1" size={20} /> Сменить пароль</Link>
-                    <a className="dropdown-item d-flex" href="#" onClick={(e)=>{e.preventDefault(); useCases?.userUseCase.DeleteUser(props.user.Id()); setShowMenu(false)}}><Trash className="me-1" size={20} /> Удалить</a>
                 </div>
             </div>
         </td>

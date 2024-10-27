@@ -14,7 +14,7 @@ export const UserList = () => {
         to: new Date(),
     })
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         let start = new Date();
         let end = new Date();
         start.setDate(start.getDate() - 30);
@@ -83,6 +83,6 @@ export const UserList = () => {
                 </div>
             </div>
         </div>
-    )
+    )*/
 
 }

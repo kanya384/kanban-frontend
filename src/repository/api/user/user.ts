@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User } from "../../../domain/user/user";
+/*import { User } from "../../../domain/user/user";
 import { Configuration, UsersApi } from "../generated";
 import { UsersInterface } from "../../../useCase/users/adapters/interface";
 
@@ -148,3 +148,4 @@ export class UsersRepository implements UsersInterface {
     }
 
 }
+    */

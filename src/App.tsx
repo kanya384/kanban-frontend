@@ -16,10 +16,10 @@ import "./css/perfect-scrollbars.css"
 
 function App() {
   let actions = useActions();
-  let { authUseCase,  userUseCase} = useUseCases(actions)
+  let { authUseCase} = useUseCases(actions)
 
   return (
-      <UseCasesContext.Provider value={{ authUseCase: authUseCase,  userUseCase: userUseCase,}}>
+      <UseCasesContext.Provider value={{ authUseCase: authUseCase }}>
           <div className="App">
             <RouterComponent />
           </div>

@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://moderate.leadactiv.ru/",
+  "proxy": "http://localhost:8080",
   "proxy_admin": "https://moderate.leadactiv.ru/",
   "homepage": "/",
   "dependencies": {

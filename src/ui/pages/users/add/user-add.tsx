@@ -28,7 +28,7 @@ export const UserAdd = () => {
         },
     ]
 
-    let useCases = useContext(UseCasesContext)
+    /*let useCases = useContext(UseCasesContext)
     const [form, setForm] = useState<{
         id: number,
         name: string,
@@ -285,5 +285,5 @@ export const UserAdd = () => {
                 </div>
             </div>
         </div>
-    )
+    )*/
 }

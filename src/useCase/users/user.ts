@@ -1,8 +1,8 @@
-import { UsersRepository } from "../../repository/api/user/user";
+//import { UsersRepository } from "../../repository/api/user/user";
 import { actionCreators } from "../../state";
 
 export class UserUseCases {
-    private api: UsersRepository;
+    /*private api: UsersRepository;
     private stateActions: typeof actionCreators;
 
     constructor(api: UsersRepository, stateActions: typeof actionCreators) {
@@ -78,5 +78,5 @@ export class UserUseCases {
             }
         }
     }
-
+    */
 }
