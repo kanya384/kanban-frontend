@@ -1,0 +1,16 @@
+version: '3'
+networks:
+  app-net:
+    driver: bridge
+services:
+  frontend:
+    image: leadgenkrd/leadgen-moderation-frontend:0.0.50
+    build:
+      context: ../
+      args:
+        REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL_PROD}
+        REACT_APP_INTEGRATION_URL: ${REACT_APP_INTEGRATION_URL}
+    container_name: frontend
+    networks:
+      - app-net
+    stdin_open: true
