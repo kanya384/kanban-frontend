@@ -15,7 +15,7 @@ export const Box: FC<BoxProps> = memo(function Box({ task,  statusId }) {
   const [{ opacity }, drag] = useDrag(
     () => ({
       type: "task",
-      item: { task },
+      item: {task, statusId},
       collect: (monitor) => ({
         opacity: monitor.isDragging() ? 0.4 : 1,
       }),

@@ -7,7 +7,7 @@ import { StatusComponent } from '../status_component'
 export interface DustbinProps {
   accept: string[]
   lastDroppedItem?: any
-  onDrop: (item: any) => void,
+  onDrop: (item: any, monitor: any) => void,
   status: Status
 }
 

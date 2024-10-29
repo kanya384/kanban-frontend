@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { DotsVertical } from "tabler-icons-react";
+import { DotsVertical, Edit, Trash } from "tabler-icons-react";
 import { Task } from "../../../../domain/task";
 import { UseCasesContext } from "../../../../context/useCases";
 
@@ -12,9 +12,8 @@ export const TaskComponent = (props: { task: Task, statusId: number }) => {
             <div className="dropdown kanban-tasks-item-dropdown mt-4">
                 <DotsVertical onClick={(e)=>{e.preventDefault(); setShowMenu(!showMenu)}} />
                 <div className={showMenu?"dropdown-menu dropdown-menu-end show":"dropdown-menu dropdown-menu-end"}>
-                    <a className="dropdown-item" href="javascript:void(0)">Скопировать ссылку</a>
-                    <a className="dropdown-item">Создать копию</a>
-                    <a className="dropdown-item delete-task" onClick={() => {useCases?.kanbanItemUseCase.DeleteTask(props.task.getId(), props.statusId)}}>Удалить</a>
+                    <a className="dropdown-item"><Edit size={16} /> Редактировать</a>
+                    <a className="dropdown-item delete-task" onClick={() => {useCases?.kanbanItemUseCase.DeleteTask(props.task.getId(), props.statusId)}}><Trash size={16} /> Удалить</a>
                 </div>
             </div>
         </div>

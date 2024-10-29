@@ -61,6 +61,11 @@ export interface KanbanTaskRemove {
     payload: {taskId: number, statusId: number}
 }
 
+export interface KanbanTaskStatusChanged {
+    type: KanbanActionTypes.KANBAN_TASK_STATUS_CHANGED,
+    payload: {taskId: number, oldStatusId: number, newStatusId: number}
+}
+
 
 export interface KanbanCreateRequest {
     type: KanbanActionTypes.KANBAN_CREATE_REQUEST,
@@ -120,6 +125,7 @@ export type KanbanActions =
  | KanbanTaskUpdate
  | KanbanStatusRemove
  | KanbanTaskRemove
+ | KanbanTaskStatusChanged
  | KanbanCreateRequest
  | KanbanCreateSuccess
  | KanbanCreateError

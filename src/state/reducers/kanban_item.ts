@@ -1,11 +1,13 @@
 import { Kanban } from "../../domain/kanban";
+import { Status } from "../../domain/status";
+import { Task } from "../../domain/task";
 import { KanbanActionTypes } from "../action-types";
 import { KanbanActions } from "../actions";
 import produce from 'immer';
 
 
 interface KanbanItemState {
-    loading: boolean | null;
+    loading: boolean;
     kanban: Kanban | null,
     error: string | null,
     entityLoading: boolean,
@@ -13,7 +15,7 @@ interface KanbanItemState {
 }
 
 const initialState: KanbanItemState = {
-    loading: null,
+    loading: false,
     kanban: null,
     error: null,
     entityLoading: false,
@@ -75,6 +77,23 @@ const reducer = produce((state: KanbanItemState = initialState, action: KanbanAc
                 }
             })
             state.kanban?.setStatuses([...statusesL])
+            return {...state};
+
+        case KanbanActionTypes.KANBAN_TASK_STATUS_CHANGED:
+            let _statuses = state.kanban!.getStatuses()
+
+            let oldStatus: Status | undefined = _statuses.find((st) => st.getId() == action.payload.oldStatusId);
+            let newStatus: Status | undefined = _statuses.find((st) => st.getId() == action.payload.newStatusId);
+            let task: Task | undefined = oldStatus?.getTasks().find((tsk) => tsk.getId() == action.payload.taskId);
+
+            if (!oldStatus || !newStatus || !task) {
+                return state;
+            }
+
+            
+            oldStatus.setTasks([...oldStatus.getTasks().filter((task) => task.getId() != action.payload.taskId)])
+            newStatus.setTasks([...newStatus.getTasks(), task])
+
             return {...state};
     
         default:

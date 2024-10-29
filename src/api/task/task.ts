@@ -70,6 +70,26 @@ export class TasksRepository {
         return Error("something's gone wrong")
     }
 
+    async ChangeStatus(id: number, statusId: number): Promise<Task | Error> {
+        try {
+            let response = await this.service.changeStatus(id, statusId, { headers: { "Authorization": "Bearer " + localStorage.getItem("token") } })
+
+            if (response.status === 200) {
+               return toDomainTask(response.data)
+
+            }
+        } catch (e) {
+            let error: string = ""
+            if (axios.isAxiosError(e)) {
+                error = e.response?.data.error
+            }
+
+            return Error(error)
+        }
+
+        return Error("something's gone wrong")
+    }
+
     async DeleteTask(id: number): Promise<string | Error> {
         try {
             let response = await this.service._delete(id, { headers: { "Authorization": "Bearer " + localStorage.getItem("token") } })

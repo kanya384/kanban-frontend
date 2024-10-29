@@ -212,12 +212,15 @@
   padding: 0;
 }
 .app-kanban .kanban-wrapper .kanban-container .kanban-board .kanban-title-button {
-  position: absolute;
   left: -8px;
-  bottom: 0;
-  margin: -1.5rem 0;
   font-size: 0.8125rem;
 }
+
+.add_task_bottom{
+  bottom: 0;
+  margin: -1.5rem 0;
+}
+
 .app-kanban .kanban-wrapper .kanban-container .kanban-board .kanban-title-button:focus {
   box-shadow: none;
 }
@@ -225,7 +228,7 @@
 .kanban-title{
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
 }

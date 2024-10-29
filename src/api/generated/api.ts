@@ -464,6 +464,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {number} id 
+         * @param {number} statusId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeStatus: async (id: number, statusId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('changeStatus', 'id', id)
+            // verify required parameter 'statusId' is not null or undefined
+            assertParamExists('changeStatus', 'statusId', statusId)
+            const localVarPath = `/task/{id}/status/{statusId}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"statusId"}}`, encodeURIComponent(String(statusId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {UserCreateDTO} userCreateDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1137,6 +1178,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} id 
+         * @param {number} statusId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async changeStatus(id: number, statusId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TaskDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.changeStatus(id, statusId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {UserCreateDTO} userCreateDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1340,6 +1392,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @param {number} id 
+         * @param {number} statusId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeStatus(id: number, statusId: number, options?: any): AxiosPromise<TaskDTO> {
+            return localVarFp.changeStatus(id, statusId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {UserCreateDTO} userCreateDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1526,6 +1588,18 @@ export class DefaultApi extends BaseAPI {
      */
     public addCollaboratorToKanban(id: number, collaboratorId: number, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).addCollaboratorToKanban(id, collaboratorId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {number} statusId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public changeStatus(id: number, statusId: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).changeStatus(id, statusId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

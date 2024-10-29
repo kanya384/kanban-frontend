@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Plus } from "tabler-icons-react"
 import { UseCasesContext } from "../../../../context/useCases";
 import { useContext, useEffect, useState } from "react";
-import { Kanban } from "../../../../domain/kanban";
 import { Task } from "../../../../domain/task";
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
@@ -11,7 +10,11 @@ import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 
 export const Board = () => {
     const navigate = useNavigate();
+    
     let { id } = useParams();
+
+    const [idOfKanban, setIdOfKanban] = useState<null | number>(null)  
+
     const [statusAddShow, setStatusAddShow] = useState(false)
 
     const [form, setForm] = useState({
@@ -33,11 +36,19 @@ export const Board = () => {
         }
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         if (id) {
-            useCases?.kanbanItemUseCase.ReadKanbanById(parseInt(id))
+            if (idOfKanban != parseInt(id)) {
+                setIdOfKanban(parseInt(id))
+            }
         }
     }, [id])
+
+    useEffect(()=>{
+        if (idOfKanban != null) {
+            useCases?.kanbanItemUseCase.ReadKanbanById(idOfKanban)
+        }
+    },[idOfKanban])
 
     return (
         <div className="layout-page" >
@@ -54,8 +65,8 @@ export const Board = () => {
                                             return <Target
                                                 status={status}
                                                 accept={["task"]}
-                                                onDrop={(item: Task) => {
-                                                    console.log(item)
+                                                onDrop={(item: {task: Task, statusId: number}) => {
+                                                    useCases?.kanbanItemUseCase.ChangeTaskStatus(item.task.getId(), status.getId(), item.statusId)
                                                 }}
                                             />
                                         })

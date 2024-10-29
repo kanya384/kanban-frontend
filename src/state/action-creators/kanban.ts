@@ -111,6 +111,16 @@ export const KanbanTaskRemove = (taskId: number, statusId: number) => {
     }
 }
 
+
+export const KanbanTaskStatusChanged = (taskId: number, oldStatusId: number, newStatusId: number) => {
+    return async (dispatch: Dispatch<KanbanActions>) => {
+        dispatch({
+            type: KanbanActionTypes.KANBAN_TASK_STATUS_CHANGED,
+            payload: {taskId, oldStatusId, newStatusId},
+        });
+    }
+}
+
 export const KanbanCreateRequest = () => {
     return async (dispatch: Dispatch<KanbanActions>) => {
         dispatch({

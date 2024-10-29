@@ -15,6 +15,8 @@ export enum KanbanActionTypes {
 
     KANBAN_STATUS_REMOVE = "kanban_status_remove",
     KANBAN_TASK_REMOVE = "kanban_task_remove",
+
+    KANBAN_TASK_STATUS_CHANGED = "kanban_task_status_changed",
     
     KANBAN_CREATE_REQUEST = 'kanban_create_request',
     KANBAN_CREATE_SUCCESS = 'kanban_create_success',

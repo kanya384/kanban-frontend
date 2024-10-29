@@ -32,17 +32,17 @@ export const StatusComponent = (props: { status: Status }) => {
             <div className="dropdown">
                 <DotsVertical style={{ cursor: "pointer" }} onClick={(e) => { e.preventDefault(); setShowMenu(!showMenu) }} />
                 <div className={showMenu ? "dropdown-menu dropdown-menu-end show" : "dropdown-menu dropdown-menu-end"} aria-labelledby="board-dropdown">
-                    <a className="dropdown-item" href="#" > <Edit size={16} /> <span className="align-middle">Переименовать</span></a>
+                    <a className="dropdown-item" href="#" > <Edit size={16} /> <span className="align-middle">Редактировать</span></a>
                     <a className="dropdown-item delete-board" href="#" onClick={(e)=>{e.preventDefault(); useCases?.kanbanItemUseCase.DeleteStatus(props.status.getId())}}><Trash size={16} /> <span className="align-middle">Удалить</span></a>
                 </div>
             </div>
         </header>
-        <main className="kanban-drag">
+        <main className="kanban-drag" style={{minHeight: "100vh"}}>
             {props.status.getTasks().map((task) => {
                 return <Box task={task} statusId={props.status.getId()} />
             })}
             {!addTaskForm ?
-                <button className="kanban-title-button btn" onClick={()=>{setShowAddTaskForm(true)}}>+ Добавить новую таску</button> :
+                <button className={"kanban-title-button btn"} onClick={()=>{setShowAddTaskForm(true)}}>+ Добавить новую таску</button> :
                 <form className="new-item-form not-draggable">
                     <div className="mb-2"><input className="form-control add-new-item" placeholder="Тайтл таски" required={true} value={form.title} onChange={(e)=>{e.preventDefault(); setForm({
                         ...form,
@@ -60,6 +60,7 @@ export const StatusComponent = (props: { status: Status }) => {
                     </div>
                 </form>
             }
+            
         </main>
         <footer></footer>
     </ Fragment>

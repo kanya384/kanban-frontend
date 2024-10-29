@@ -98,5 +98,21 @@ export class KanbanItemUseCases {
             }
         }
     }
+
+    public ChangeTaskStatus = async (id: number, statusId: number, oldStatusId: number, callback?: ()=>void) => {
+        if (statusId == oldStatusId) {
+            return
+        }
+        let response = await this.apiTask.ChangeStatus(id, statusId)
+        console.log(response)
+        if (response instanceof Error) {
+            return
+        } else {
+            this.stateActions.KanbanTaskStatusChanged(id, oldStatusId, statusId)
+            if (callback) {
+                callback()
+            }
+        }
+    }
     
 }
