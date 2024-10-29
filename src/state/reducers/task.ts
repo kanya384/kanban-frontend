@@ -1,20 +1,20 @@
-import { User } from "../../domain/user";
-import { UserActionTypes } from "../action-types";
-import { UserActions } from "../actions";
+import { Task } from "../../domain/task";
+import { TaskActionTypes } from "../action-types";
+import { TaskActions } from "../actions";
 import produce from 'immer';
 
 
-interface UserState {
+interface TaskState {
     loading: boolean | null;
-    users: User[] | null,
+    tasks: Task[] | null,
     error: string | null,
     entityLoading: boolean,
     entityError: string | null,
 }
 
-const initialState: UserState = {
+const initialState: TaskState = {
     loading: null,
-    users: null,
+    tasks: null,
     error: null,
     entityLoading: false,
     entityError: null,
@@ -22,34 +22,34 @@ const initialState: UserState = {
 
 
 
-const reducer = produce((state: UserState = initialState, action: UserActions) => {
+const reducer = produce((state: TaskState = initialState, action: TaskActions) => {
     switch (action.type) {
-        case UserActionTypes.USER_REQUEST_SEND:
+        case TaskActionTypes.TASK_REQUEST_SEND:
             state.loading = true;
             return state;
-        case UserActionTypes.USER_SUCCESS:
+        case TaskActionTypes.TASK_SUCCESS:
             state.loading = false;
-            state.users = action.payload;
+            state.tasks = action.payload;
             return state;
-        case UserActionTypes.USER_ERROR:
+        case TaskActionTypes.TASK_ERROR:
             state.loading = false;
             state.error = action.payload;
             return state;
-        case UserActionTypes.USER_CREATE_REQUEST:
+        case TaskActionTypes.TASK_CREATE_REQUEST:
             state.entityLoading = true
             state.entityError = ""
             return state;
-        case UserActionTypes.USER_CREATE_SUCCESS:
+        case TaskActionTypes.TASK_CREATE_SUCCESS:
             state.entityLoading = false
-            state.users!.push(action.payload)
+            state.tasks!.push(action.payload)
             state.entityError = ""
             return state;
-        case UserActionTypes.USER_CREATE_ERROR:
+        case TaskActionTypes.TASK_CREATE_ERROR:
             state.entityLoading = false
             state.entityError = action.payload;
             return state;
-        case UserActionTypes.USER_DELETE_SUCCESS:
-            state.users = state.users!.filter((users) => users.getId() !== action.payload)
+        case TaskActionTypes.TASK_DELETE_SUCCESS:
+            state.tasks = state.tasks!.filter((tasks) => tasks.getId() !== action.payload)
             return state;
         default:
             return state;

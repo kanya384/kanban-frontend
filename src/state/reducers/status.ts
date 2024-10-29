@@ -1,20 +1,20 @@
-import { User } from "../../domain/user";
-import { UserActionTypes } from "../action-types";
-import { UserActions } from "../actions";
+import { Status } from "../../domain/status";
+import { StatusActionTypes } from "../action-types";
+import { StatusActions } from "../actions";
 import produce from 'immer';
 
 
-interface UserState {
+interface StatusState {
     loading: boolean | null;
-    users: User[] | null,
+    statuses: Status[] | null,
     error: string | null,
     entityLoading: boolean,
     entityError: string | null,
 }
 
-const initialState: UserState = {
+const initialState: StatusState = {
     loading: null,
-    users: null,
+    statuses: null,
     error: null,
     entityLoading: false,
     entityError: null,
@@ -22,34 +22,34 @@ const initialState: UserState = {
 
 
 
-const reducer = produce((state: UserState = initialState, action: UserActions) => {
+const reducer = produce((state: StatusState = initialState, action: StatusActions) => {
     switch (action.type) {
-        case UserActionTypes.USER_REQUEST_SEND:
+        case StatusActionTypes.STATUS_REQUEST_SEND:
             state.loading = true;
             return state;
-        case UserActionTypes.USER_SUCCESS:
+        case StatusActionTypes.STATUS_SUCCESS:
             state.loading = false;
-            state.users = action.payload;
+            state.statuses = action.payload;
             return state;
-        case UserActionTypes.USER_ERROR:
+        case StatusActionTypes.STATUS_ERROR:
             state.loading = false;
             state.error = action.payload;
             return state;
-        case UserActionTypes.USER_CREATE_REQUEST:
+        case StatusActionTypes.STATUS_CREATE_REQUEST:
             state.entityLoading = true
             state.entityError = ""
             return state;
-        case UserActionTypes.USER_CREATE_SUCCESS:
+        case StatusActionTypes.STATUS_CREATE_SUCCESS:
             state.entityLoading = false
-            state.users!.push(action.payload)
+            state.statuses!.push(action.payload)
             state.entityError = ""
             return state;
-        case UserActionTypes.USER_CREATE_ERROR:
+        case StatusActionTypes.STATUS_CREATE_ERROR:
             state.entityLoading = false
             state.entityError = action.payload;
             return state;
-        case UserActionTypes.USER_DELETE_SUCCESS:
-            state.users = state.users!.filter((users) => users.getId() !== action.payload)
+        case StatusActionTypes.STATUS_DELETE_SUCCESS:
+            state.statuses = state.statuses!.filter((status) => status.getId() !== action.payload)
             return state;
         default:
             return state;

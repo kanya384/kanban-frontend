@@ -1,20 +1,20 @@
-import { User } from "../../domain/user";
-import { UserActionTypes } from "../action-types";
-import { UserActions } from "../actions";
+import { Kanban } from "../../domain/kanban";
+import { KanbanActionTypes } from "../action-types";
+import { KanbanActions } from "../actions";
 import produce from 'immer';
 
 
-interface UserState {
+interface KanbanState {
     loading: boolean | null;
-    users: User[] | null,
+    kanbans: Kanban[] | null,
     error: string | null,
     entityLoading: boolean,
     entityError: string | null,
 }
 
-const initialState: UserState = {
+const initialState: KanbanState = {
     loading: null,
-    users: null,
+    kanbans: null,
     error: null,
     entityLoading: false,
     entityError: null,
@@ -22,34 +22,34 @@ const initialState: UserState = {
 
 
 
-const reducer = produce((state: UserState = initialState, action: UserActions) => {
+const reducer = produce((state: KanbanState = initialState, action: KanbanActions) => {
     switch (action.type) {
-        case UserActionTypes.USER_REQUEST_SEND:
+        case KanbanActionTypes.KANBAN_REQUEST_SEND:
             state.loading = true;
             return state;
-        case UserActionTypes.USER_SUCCESS:
+        case KanbanActionTypes.KANBAN_SUCCESS:
             state.loading = false;
-            state.users = action.payload;
+            state.kanbans = action.payload;
             return state;
-        case UserActionTypes.USER_ERROR:
+        case KanbanActionTypes.KANBAN_ERROR:
             state.loading = false;
             state.error = action.payload;
             return state;
-        case UserActionTypes.USER_CREATE_REQUEST:
+        case KanbanActionTypes.KANBAN_CREATE_REQUEST:
             state.entityLoading = true
             state.entityError = ""
             return state;
-        case UserActionTypes.USER_CREATE_SUCCESS:
+        case KanbanActionTypes.KANBAN_CREATE_SUCCESS:
             state.entityLoading = false
-            state.users!.push(action.payload)
+            state.kanbans!.push(action.payload)
             state.entityError = ""
             return state;
-        case UserActionTypes.USER_CREATE_ERROR:
+        case KanbanActionTypes.KANBAN_CREATE_ERROR:
             state.entityLoading = false
             state.entityError = action.payload;
             return state;
-        case UserActionTypes.USER_DELETE_SUCCESS:
-            state.users = state.users!.filter((users) => users.getId() !== action.payload)
+        case KanbanActionTypes.KANBAN_DELETE_SUCCESS:
+            state.kanbans = state.kanbans!.filter((kanbans) => kanbans.getId() !== action.payload)
             return state;
         default:
             return state;

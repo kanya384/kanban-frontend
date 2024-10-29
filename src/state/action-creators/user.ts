@@ -1,7 +1,7 @@
 import { Dispatch } from "react"
 import { UserActionTypes } from "../action-types";
 import { UserActions } from "../actions"
-import { User } from "../../domain/user/user";
+import { User } from "../../domain/user";
 
 export const SendUserListRequest = () => {
     return async (dispatch: Dispatch<UserActions>) => {

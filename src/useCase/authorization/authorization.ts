@@ -1,4 +1,4 @@
-import { AuthApi } from "../../repository/api/auth/auth";
+import { AuthApi } from "../../api/auth/auth";
 import { actionCreators } from "../../state";
 import { AuthStorage } from "../../storage/auth";
 import { AuthStorageInterface } from "./adapters/storage/storage";

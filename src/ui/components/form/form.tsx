@@ -337,7 +337,7 @@ export const Form = (props: props) => {
                     </label>
                 </div>
             </div> : <></>}
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end" style={{marginTop: props.fields.length == 1?"50px":""}}>
                 {props.submitBtnTitle ? <button key="submit" className={props.btnSmall == true ? "btn btn-primary d-grid" : "btn btn-primary d-grid w-100"}>{props.state.loading ? "loading" : props.submitBtnTitle}</button> : <></>}
             </div>
         </form>
