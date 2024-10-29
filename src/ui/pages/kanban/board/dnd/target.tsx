@@ -15,7 +15,7 @@ export const Target: FC<DustbinProps> = memo(function Dustbin({
   accept,
   lastDroppedItem,
   onDrop,
-  status
+  status,
 }) {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,

@@ -65,6 +65,7 @@ const reducer = produce((state: KanbanItemState = initialState, action: KanbanAc
             statusesList?.forEach((status) => {
                 if (status.getId() == action.payload.statusId) {
                     status.setTasks([...status.getTasks().filter((task) => task.getId() != action.payload.task.getId()), action.payload.task])
+                    console.log(status.getTasks())
                 }
             })
             state.kanban?.setStatuses([...statusesList])

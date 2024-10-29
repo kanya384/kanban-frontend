@@ -75,8 +75,8 @@ export class KanbanItemUseCases {
         }
     }
 
-    public UpdateTask = async (statusId: number, title: string, content: string, callback?: ()=>void) => {
-        let response = await this.apiTask.UpdateTask(statusId, title, content)
+    public UpdateTask = async (statusId: number, taskId: number, title: string, content: string, callback?: ()=>void) => {
+        let response = await this.apiTask.UpdateTask(taskId, title, content)
         if (response instanceof Error) {
             return
         } else {
