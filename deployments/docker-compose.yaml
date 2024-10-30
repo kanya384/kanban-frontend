@@ -4,9 +4,11 @@ networks:
     driver: bridge
 services:
   frontend:
-    image: laurkan/kanban-frontend:0.0.1
+    image: laurkan/kanban-frontend:0.0.3
     build:
       context: ../
+      args:
+        REACT_APP_BACKEND_URL: "/api"
     container_name: frontend
     networks:
       - app-net

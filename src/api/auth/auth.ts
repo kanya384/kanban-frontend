@@ -5,7 +5,7 @@ export class AuthApi {
     private service: DefaultApi;
 
     constructor () {
-        this.service = new DefaultApi(new Configuration(), "")
+        this.service = new DefaultApi(new Configuration(), process.env.REACT_APP_BACKEND_URL)
     }
 
     async SignIn(username: string, password: string): Promise<string | Error> {

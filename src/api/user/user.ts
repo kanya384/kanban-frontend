@@ -8,7 +8,7 @@ export class UsersRepository {
     private service: DefaultApi;
 
     constructor() {
-        this.service = new DefaultApi(new Configuration(), "")
+        this.service = new DefaultApi(new Configuration(), process.env.REACT_APP_BACKEND_URL)
     }
 
     async ReadUserById(id: number): Promise<User | Error> {

@@ -7,7 +7,7 @@ export class KanbansRepository {
     private service: DefaultApi;
 
     constructor() {
-        this.service = new DefaultApi(new Configuration(), "")
+        this.service = new DefaultApi(new Configuration(), process.env.REACT_APP_BACKEND_URL)
     }
 
     async ReadKanbanById(id: number): Promise<Kanban | Error> {
